@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>AI Antwort</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="center">
+  <h1>Character Antwort</h1>
+  <p>Du schreibst hier die Antwort</p>
+
+  <textarea id="aiText" placeholder="Antwort eingeben..." style="width:80%;height:120px;"></textarea>
+  <br><br>
+  <button class="btn" onclick="sendAI()">Antwort senden</button>
+</div>
+
+<script>
+function sendAI() {
+  const text = document.getElementById("aiText").value;
+  if (!text) return;
+
+  localStorage.setItem("ai_response", text);
+  document.getElementById("aiText").value = "";
+}
+</script>
+
+</body>
+</html>
