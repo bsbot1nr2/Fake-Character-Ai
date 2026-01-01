@@ -1,5 +1,5 @@
 const chat = document.getElementById("chat");
-const text = document.getElementById("text");
+const textInput = document.getElementById("text");
 
 function addMessage(msg, cls) {
   const div = document.createElement("div");
@@ -9,17 +9,36 @@ function addMessage(msg, cls) {
   chat.scrollTop = chat.scrollHeight;
 }
 
+// User sendet Nachricht
 function sendUser() {
-  if (!text.value) return;
-  addMessage(text.value, "user");
-  text.value = "";
+  if (!textInput || !textInput.value) return;
+
+  const msg = textInput.value;
+  addMessage(msg, "user");
+  saveMessage(msg, "user");
+  textInput.value = "";
 }
 
-// Checkt jede Sekunde, ob auf /ai geantwortet wurde
+// Speicherfunktion
+function saveMessage(msg, type) {
+  const history = JSON.parse(localStorage.getItem("chat_history") || "[]");
+  history.push({ msg, type });
+  localStorage.setItem("chat_history", JSON.stringify(history));
+}
+
+// Chat laden
+function loadChat() {
+  const history = JSON.parse(localStorage.getItem("chat_history") || "[]");
+  history.forEach(m => addMessage(m.msg, m.type));
+}
+loadChat();
+
+// AI-Antwort empfangen
 setInterval(() => {
   const aiMsg = localStorage.getItem("ai_response");
   if (aiMsg) {
     addMessage(aiMsg, "char");
+    saveMessage(aiMsg, "char");
     localStorage.removeItem("ai_response");
   }
-}, 1000);
+}, 800);
