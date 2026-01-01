@@ -7,16 +7,15 @@ body {
 
 .center {
   text-align: center;
-  margin-top: 20vh;
+  margin-top: 25vh;
 }
 
 .btn {
   background: #4a4aff;
   color: white;
-  padding: 12px 20px;
+  padding: 12px 22px;
   text-decoration: none;
   border-radius: 8px;
-  cursor: pointer;
 }
 
 header {
